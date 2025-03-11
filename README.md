@@ -32,7 +32,7 @@ A modern, high-performance starter template for building server-rendered React a
 1. Clone this repository:
 
     ```bash
-    git clone https://github.com/yourusername/cloudflare-react-tailwind-worker.git
+    git clone https://github.com/feliperohdee/cloudflare-react-tailwind-worker.git
     cd cloudflare-react-tailwind-worker
     ```
 

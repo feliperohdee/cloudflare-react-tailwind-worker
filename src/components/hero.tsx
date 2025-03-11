@@ -1,15 +1,18 @@
 import { Menu } from 'lucide-react';
 
 const navigation = [
-	{ name: 'Documentation', href: '#' },
-	{ name: 'Features', href: '#' },
-	{ name: 'Examples', href: '#' },
-	{ name: 'GitHub', href: '#' }
+	{
+		name: 'Cloudflare Docs',
+		href: 'https://developers.cloudflare.com/workers/'
+	},
+	{ name: 'Tailwind CSS', href: 'https://tailwindcss.com/docs' },
+	{ name: 'React Docs', href: 'https://react.dev/' },
+	{ name: 'Hono', href: 'https://hono.dev/' }
 ];
 
 const Hero = () => {
 	return (
-		<div className='bg-gray-900'>
+		<div className='h-screen overflow-hidden bg-gray-900'>
 			<header className='absolute inset-x-0 top-0 z-50'>
 				<nav
 					aria-label='Global'
@@ -17,10 +20,12 @@ const Hero = () => {
 				>
 					<div className='flex lg:flex-1'>
 						<a
-							href='#'
+							href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 							className='-m-1.5 p-1.5'
 						>
-							<span className='sr-only'>Cloudflare React Tailwind Worker</span>
+							<span className='sr-only'>
+								Cloudflare React Tailwind Worker
+							</span>
 							<img
 								alt=''
 								src='/images/mark.svg'
@@ -53,7 +58,7 @@ const Hero = () => {
 					</div>
 					<div className='hidden lg:flex lg:flex-1 lg:justify-end'>
 						<a
-							href='#'
+							href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 							className='text-sm/6 font-semibold text-gray-300 hover:text-white'
 						>
 							Get Started <span aria-hidden='true'>&rarr;</span>
@@ -80,14 +85,15 @@ const Hero = () => {
 						<div className='relative rounded-full px-3 py-1 text-sm/6 text-gray-400 ring-1 ring-gray-600 hover:ring-gray-300'>
 							Modern edge computing with React and Tailwind.{' '}
 							<a
-								href='#'
+								href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 								className='font-semibold text-indigo-400'
 							>
 								<span
 									aria-hidden='true'
 									className='absolute inset-0'
 								/>
-								Learn more <span aria-hidden='true'>&rarr;</span>
+								Learn more{' '}
+								<span aria-hidden='true'>&rarr;</span>
 							</a>
 						</div>
 					</div>
@@ -96,19 +102,20 @@ const Hero = () => {
 							Edge-Powered React with Tailwind CSS
 						</h1>
 						<p className='mt-8 text-lg font-medium text-pretty text-gray-300 sm:text-xl/8'>
-							Build lightning-fast web applications with the power of Cloudflare Workers,
-							React 19, and Tailwind CSS v4. Deploy globally and deliver exceptional user
+							Build lightning-fast web applications with the power
+							of Cloudflare Workers, React 19, and Tailwind CSS
+							v4. Deploy globally and deliver exceptional user
 							experiences from the edge.
 						</p>
 						<div className='mt-10 flex items-center justify-center gap-x-6'>
 							<a
-								href='#'
+								href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 								className='rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 							>
 								Get started
 							</a>
 							<a
-								href='#'
+								href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 								className='text-sm/6 font-semibold text-gray-300 hover:text-white'
 							>
 								View on GitHub <span aria-hidden='true'>→</span>

@@ -2,7 +2,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang='en'>
 			<head>
-				<title>My App</title>
+				<title>Cloudflare React Tailwind Worker</title>
 				<meta
 					charSet='utf-8'
 					name='viewport'
