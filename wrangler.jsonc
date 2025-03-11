@@ -1,0 +1,15 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"compatibility_date": "2025-03-10",
+	"main": "src/index.tsx",
+	"name": "react-tailwind-worker",
+	"assets": {
+		"directory": "public"
+	},
+	"observability": {
+		"enabled": true
+	},
+	"vars": {
+		"PRODUCTION": "true"
+	}
+}
