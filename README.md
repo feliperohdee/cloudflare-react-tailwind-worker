@@ -5,27 +5,28 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 
-A modern, high-performance starter template for building server-rendered React applications with Cloudflare Workers and Tailwind CSS v4.
+A high-performance template for building server-rendered React applications with Cloudflare Workers and Tailwind CSS v4. Deploy globally at the edge with minimum latency and maximum performance.
 
 ## ✨ Features
 
-- **🚀 Cloudflare Workers** - Edge-based rendering for lightning-fast performance globally
-- **🌐 Edge Computing** - Deploy globally with Cloudflare Workers
-- **⚛️ React 19** - Server-side rendering with the latest React features
-- **🎨 Tailwind CSS v4** - Next-generation utility-first CSS framework
-- **📘 TypeScript** - Full type safety throughout the application
-- **🔄 Live Reload** - Instant feedback during development
-- **🧪 Testing** - Built-in test setup with Vitest and Cloudflare's testing tools
-- **📝 ESLint & Prettier** - Code quality tools configured and ready to use
-- **📦 Hono** - Lightweight, fast web framework for the edge
+- **⚡ Edge Rendering** - Server-side rendering at the edge for lightning-fast performance
+- **🌐 Global Deployment** - Leverage Cloudflare's global network for minimal latency worldwide
+- **⚛️ React 19** - Utilize the latest React features with server components
+- **🎨 Tailwind CSS v4** - Next-generation utility-first CSS framework with native cascade layers
+- **🔄 Live Reload** - Fast development workflow with hot module replacement
+- **🧪 Testing** - Built-in test setup using Vitest and Cloudflare's testing tools
+- **📝 Type Safety** - Full TypeScript support throughout the application
+- **🔒 Authentication** - Built-in authentication utilities with JWT support
+- **📡 RPC Client** - Type-safe RPC client for seamless server-client communication
+- **📦 Zero Dependencies** - No runtime dependencies in the client bundle
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) (v18 or later)
-- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
-- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/) (Cloudflare Workers CLI)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/)
+- [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/install-and-update/)
 
 ### Installation
 
@@ -39,38 +40,44 @@ A modern, high-performance starter template for building server-rendered React a
 2. Install dependencies:
 
     ```bash
-    yarn install
-    # or
     npm install
+    # or
+    yarn install
     ```
 
 3. Start the development server:
 
     ```bash
-    yarn dev
-    # or
     npm run dev
+    # or
+    yarn dev
     ```
 
-4. Open your browser at [http://localhost:8787](http://localhost:8787) to see the application running.
+4. Open your browser at [http://localhost:8787](http://localhost:8787)
 
 ## 📦 Project Structure
 
 ```
 cloudflare-react-tailwind-worker/
-├── public/               # Static assets served by Cloudflare Workers
-│   ├── images/           # Images and other media files
-│   └── style.css         # Compiled Tailwind CSS
-├── src/
-│   ├── components/       # React components
-│   ├── layout.tsx        # Main layout component
-│   ├── pages/            # Page components
-│   ├── index.tsx         # Application entry point
-│   └── style.css         # Tailwind CSS source file
-├── tests/                # Test files
-├── .cursor/              # Editor configuration
-├── wrangler.jsonc        # Cloudflare Workers configuration
-└── package.json          # Project dependencies and scripts
+├── app/                    # Client-side application code
+│   ├── index.css           # Client-side styles (Tailwind import)
+│   ├── index.ts            # Client entry point
+│   └── rpc.ts              # RPC client utilities
+├── public/                 # Static assets
+│   ├── assets/             # Compiled assets
+│   ├── images/             # Image files
+│   └── style.css           # Compiled Tailwind CSS
+├── tests/                  # Test files
+├── worker/                 # Server-side worker code
+│   ├── components/         # React components
+│   ├── context.ts          # Context management
+│   ├── index.tsx           # Worker entry point
+│   ├── layout.tsx          # Main layout component
+│   ├── pages/              # Page components
+│   └── rpc.ts              # RPC server implementation
+├── wrangler.jsonc          # Cloudflare Workers configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Project dependencies and scripts
 ```
 
 ## 🔧 Development
@@ -79,6 +86,7 @@ cloudflare-react-tailwind-worker/
 
 - `yarn dev` - Starts the development server with hot reloading
 - `yarn build` - Builds the application for production
+- `yarn start` - Starts the worker locally
 - `yarn deploy` - Deploys the application to Cloudflare Workers
 - `yarn test` - Runs the test suite
 - `yarn lint` - Lints and formats the code
@@ -95,9 +103,48 @@ Environment variables can be configured in `wrangler.jsonc`:
 }
 ```
 
-### Tailwind CSS v4
+## 📡 RPC System
 
-This starter uses Tailwind CSS v4, which brings several improvements over previous versions:
+This project includes a robust type-safe RPC system for server-client communication. For detailed documentation, see [README-RPC.md](README-RPC.md).
+
+### Server-side RPC Definition
+
+```typescript
+// worker/rpc.ts
+class Rpc {
+	async hello({ message }: { message: string }) {
+		return {
+			message: `Hello, ${message}!`,
+			url: request.url
+		};
+	}
+}
+```
+
+### Client-side RPC Usage
+
+```typescript
+// In your client code
+import createRpcClient from '@/app/rpc';
+
+const { resource } = createRpcClient();
+
+// Create a resource for the hello method
+const helloResource = resource('hello', { message: 'World' });
+
+// Subscribe to data changes
+helloResource.onData(data => {
+	console.log(data.message); // "Hello, World!"
+});
+
+// Or use async/await
+const data = await helloResource.fetch({ message: 'React' });
+console.log(data.message); // "Hello, React!"
+```
+
+## 🎨 Tailwind CSS v4
+
+This starter utilizes Tailwind CSS v4, bringing several improvements:
 
 - CSS-first configuration
 - Native CSS cascade layers
@@ -106,47 +153,38 @@ This starter uses Tailwind CSS v4, which brings several improvements over previo
 - 3D transforms
 - Dynamic spacing scale
 
-For more details, check out the [Tailwind CSS v4 documentation](https://tailwindcss.com/).
-
 ## 🌐 Deployment
 
 ### Preview Deployment
 
-To create a preview deployment:
-
 ```bash
 yarn deploy --env preview
-# or
-npm run deploy -- --env preview
 ```
 
 ### Production Deployment
 
-To deploy to production:
-
 ```bash
 yarn deploy
-# or
-npm run deploy
 ```
 
 ## 📚 Technology Stack
 
 - [Cloudflare Workers](https://workers.cloudflare.com/) - Serverless execution environment
-- [React](https://react.dev/) - UI library
-- [Hono](https://hono.dev/) - Web framework for the edge
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
-- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
+- [React](https://react.dev/) - UI library (v19)
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework (v4)
+- [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 - [Vitest](https://vitest.dev/) - Testing framework
+- [Typed RPC](https://github.com/fed135/typed-rpc) - Type-safe RPC library
+- [use-request-utils](https://github.com/feliperohdee/use-request-utils) - Request utilities
 
-## License
+## 📄 License
 
 MIT © [Felipe Rohde](mailto:feliperohdee@gmail.com)
 
-## Author
+## 👤 Author
 
 **Felipe Rohde**
 
 - Twitter: [@felipe_rohde](https://twitter.com/felipe_rohde)
-- Github: [@feliperohdee](https://github.com/feliperohdee)
+- GitHub: [@feliperohdee](https://github.com/feliperohdee)
 - Email: feliperohdee@gmail.com

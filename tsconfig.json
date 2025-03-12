@@ -6,18 +6,17 @@
 		"forceConsistentCasingInFileNames": true,
 		"isolatedModules": true,
 		"jsx": "react-jsx",
-		"jsxImportSource": "react",
-		"lib": ["es2021"],
-		"module": "es2022",
+		"lib": ["ESNext", "DOM"],
+		"module": "ESNext",
 		"moduleResolution": "Bundler",
 		"noEmit": true,
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./*"]
 		},
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
 		"strict": true,
-		"target": "es2021",
-		"types": ["hono", "@cloudflare/workers-types/2023-07-01"]
+		"target": "ESNext",
+		"types": ["@cloudflare/workers-types/2023-07-01"]
 	}
 }
