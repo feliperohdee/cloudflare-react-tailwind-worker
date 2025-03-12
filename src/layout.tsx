@@ -3,6 +3,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 		<html lang='en'>
 			<head>
 				<title>Cloudflare React Tailwind Worker</title>
+				<link
+					rel='icon'
+					href='/images/icon.png'
+				/>
 				<meta
 					charSet='utf-8'
 					name='viewport'
