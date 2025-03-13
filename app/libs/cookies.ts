@@ -12,4 +12,8 @@ const get = (name: string) => {
 	return cookie.split('=')[1];
 };
 
-export default { get };
+const set = (name: string, value: string) => {
+	document.cookie = `${name}=${value}; path=/`;
+};
+
+export default { get, set };
