@@ -1,9 +1,9 @@
 import { createElement } from 'react';
 import { renderToReadableStream } from 'react-dom/server';
 import cookies from 'use-request-utils/cookies';
+import headers from 'use-request-utils/headers';
 
 import context from '@/worker/context';
-import headers from 'use-request-utils/headers';
 import HomePage from '@/worker/pages/home';
 import HttpError from 'use-http-error';
 import i18n from '@/worker/i18n';

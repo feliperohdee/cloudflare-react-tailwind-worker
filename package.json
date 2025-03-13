@@ -41,7 +41,7 @@
 		"react-helmet-async": "^2.0.5",
 		"typed-rpc": "^6.1.1",
 		"use-infer": "^1.0.6",
-		"use-request-utils": "^1.0.9",
+		"use-request-utils": "^1.0.10",
 		"use-vite-manifest-parser": "^1.0.1"
 	}
 }
