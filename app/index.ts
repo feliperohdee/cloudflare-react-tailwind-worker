@@ -9,7 +9,7 @@ import i18n from '@/i18n';
 (() => {
 	const rpc = createRpcClient();
 	const lang = (() => {
-		const lang = cookies.read('lang');
+		const lang = cookies.get('lang');
 
 		return i18n.supports(lang) ? lang : 'en-us';
 	})();

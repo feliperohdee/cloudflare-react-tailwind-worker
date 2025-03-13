@@ -1,4 +1,4 @@
-const read = (name: string) => {
+const get = (name: string) => {
 	const cookie = document.cookie.split('; ').find(row => {
 		const [key] = row.split('=');
 
@@ -12,4 +12,4 @@ const read = (name: string) => {
 	return cookie.split('=')[1];
 };
 
-export default { read };
+export default { get };
