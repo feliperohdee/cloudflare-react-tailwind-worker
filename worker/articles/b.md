@@ -1,8 +1,8 @@
-## Responses API: Uma Análise Aprofundada
+# Responses API: Uma Análise Aprofundada
 
 A Responses API representa um avanço significativo na plataforma da OpenAI, oferecendo um conjunto de ferramentas robusto para desenvolvedores criarem agentes de IA mais capazes e autônomos. Vamos explorar mais detalhadamente suas características e funcionalidades:
 
-### Arquitetura e Funcionalidades Principais
+## Arquitetura e Funcionalidades Principais
 
 A Responses API foi construída para oferecer um ambiente de desenvolvimento mais integrado e eficiente, apresentando:
 
@@ -12,7 +12,7 @@ A Responses API foi construída para oferecer um ambiente de desenvolvimento mai
 - **Sistema de Cache Inteligente**: Implementa caching automático para reduzir latência e custos associados a consultas repetitivas.
 
 
-### Capacidades de Processamento
+## Capacidades de Processamento
 
 A API se destaca por suas capacidades de processamento avançadas:
 
@@ -21,7 +21,7 @@ A API se destaca por suas capacidades de processamento avançadas:
 - **Análise Contextual Aprimorada**: Utiliza modelos mais recentes da OpenAI para entender consultas complexas e gerar respostas mais precisas e relevantes.
 
 
-### Integrações e Extensibilidade
+## Integrações e Extensibilidade
 
 A flexibilidade da Responses API se manifesta através de:
 
@@ -30,7 +30,7 @@ A flexibilidade da Responses API se manifesta através de:
 - **Ferramentas Customizáveis**: Além das ferramentas nativas (busca web, pesquisa em arquivos, uso de computador), desenvolvedores podem definir ferramentas personalizadas específicas para seus domínios.
 
 
-### Considerações de Implementação
+## Considerações de Implementação
 
 Para desenvolvedores que desejam migrar ou implementar a Responses API:
 

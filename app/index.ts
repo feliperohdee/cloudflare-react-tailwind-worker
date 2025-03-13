@@ -1,7 +1,5 @@
 import '@/app/index.css';
 
-import Alpine from 'alpinejs';
-
 import createRpcClient from '@/app/rpc';
 import cookies from '@/app/libs/cookies';
 import i18n from '@/i18n';
@@ -15,9 +13,11 @@ import i18n from '@/i18n';
 	})();
 
 	i18n.load(lang);
-	Alpine.data('button', () => ({
-		open: false,
-		async toggle(e: Event) {
+
+	const buttons = document.querySelectorAll('button');
+
+	buttons.forEach(button => {
+		button.addEventListener('click', (e) => {
 			e.preventDefault();
 
 			const resource = rpc.resource('hello', {
@@ -27,13 +27,6 @@ import i18n from '@/i18n';
 			resource.on((event, data) => {
 				console.log(event, data);
 			});
-
-			this.open = !this.open;
-		}
-	}));
-
-	// @ts-expect-error
-	window.Alpine = Alpine;
-
-	Alpine.start();
+		});
+	});	
 })();
