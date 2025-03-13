@@ -1,4 +1,5 @@
 import parseViteManifest from 'use-vite-manifest-parser';
+import map from 'lodash/map';
 import reduce from 'lodash/reduce';
 
 import context from '@/worker/context';
@@ -14,14 +15,19 @@ const getManifest = async () => {
 		};
 	}
 
-	const res = await env.ASSETS.fetch(new URL('.vite/manifest.json', url));
+	const res = await env.ASSETS.fetch(
+		new URL('.vite/manifest.json', `https://${url.host}`)
+	);
 
 	const manifest = parseViteManifest(await res.json());
+	const assetUrl = (asset: string) => {
+		return `https://${url.host}/${asset}`;
+	};
 
 	return {
-		links: manifest.links,
-		preloads: manifest.preloads,
-		scripts: manifest.scripts
+		links: map(manifest.links, assetUrl),
+		preloads: map(manifest.preloads, assetUrl),
+		scripts: map(manifest.scripts, assetUrl)
 	};
 };
 
