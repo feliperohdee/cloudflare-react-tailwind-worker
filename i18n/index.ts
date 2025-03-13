@@ -1,8 +1,11 @@
 import enUS from '@/i18n/en-us.json';
+import ptBR from '@/i18n/pt-br.json';
+
 import loader from '@/i18n/loader';
 
 const i18n = {
-	'en-us': enUS
+	'en-us': enUS,
+	'pt-br': ptBR
 };
 
 const load = (lang: SupportedLang) => {
