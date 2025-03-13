@@ -2,12 +2,13 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { HelmetServerState } from 'react-helmet-async';
 import headers from 'use-request-utils/headers';
 
-import { Route } from '@/worker/router';
+import { Route } from '@/worker/libs/router';
 
 type ContextStore = {
 	env: Env;
 	executionContext: ExecutionContext;
 	helmet: HelmetServerState;
+	lang: string;
 	request: Request;
 	responseHeaders: Headers;
 	route: Route;

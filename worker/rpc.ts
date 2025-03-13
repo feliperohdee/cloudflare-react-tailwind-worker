@@ -23,7 +23,7 @@ class Rpc {
 			const session = await this.auth.authenticate(request.headers);
 
 			return {
-				message: `Hello, ${message} (${session.payload.email})!`,
+				message: `${__('hello', { name: message })} (${session.payload.email})!`,
 				url: request.url
 			};
 		} catch {
