@@ -6,7 +6,7 @@ import headers from 'use-request-utils/headers';
 import context from '@/worker/context';
 import HomePage from '@/worker/pages/home';
 import HttpError from 'use-http-error';
-import i18n from '@/worker/i18n';
+import i18n from '@/i18n';
 import Layout from '@/worker/layout';
 import meta from '@/worker/libs/meta';
 import NotFoundPage from '@/worker/pages/not-found';
@@ -33,11 +33,7 @@ const handler = {
 				request.headers.get('accept-language') ||
 				'';
 
-			if (!lang || !i18n.supports(lang)) {
-				return 'en-us';
-			}
-
-			return lang;
+			return i18n.supports(lang) ? lang : 'en-us';
 		})();
 
 		const res = await context.run(

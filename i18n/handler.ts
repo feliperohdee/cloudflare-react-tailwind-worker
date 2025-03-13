@@ -1,10 +1,9 @@
 import _ from 'lodash';
 
-let global = self as any;
 let cache: Record<string, string> = {};
 let translations: Record<string, string> = {};
 
-const i18n = (newTranslations: Record<string, string>) => {
+const init = (newTranslations: Record<string, string>) => {
 	cache = {};
 	translations = newTranslations;
 
@@ -35,8 +34,8 @@ const i18n = (newTranslations: Record<string, string>) => {
 		return value;
 	};
 
-	global.__ = __;
+	// @ts-expect-error
+	self.__ = __;
 };
 
-export { cache, translations };
-export default i18n;
+export default { init };
