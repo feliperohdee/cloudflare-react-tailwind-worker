@@ -1,14 +1,19 @@
 import enUS from '@/i18n/en-us.json';
-import handler from '@/i18n/handler';
+import loader from '@/i18n/loader';
 
-const i18n = { 'en-us': enUS };
-
-const init = (lang: keyof typeof i18n) => {
-	handler.init(i18n[lang]);
+const i18n = {
+	'en-us': enUS
 };
 
-const supports = (lang: string): lang is keyof typeof i18n => {
+const init = (lang: SupportedLang) => {
+	loader.init(i18n[lang]);
+};
+
+const supports = (lang: string): lang is SupportedLang => {
 	return lang in i18n;
 };
 
+type SupportedLang = keyof typeof i18n;
+
+export type { SupportedLang };
 export default { init, supports };
