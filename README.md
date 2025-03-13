@@ -69,7 +69,6 @@ cloudflare-react-tailwind-worker/
 │   ├── assets/             # Compiled assets (generated)
 │   ├── images/             # Image files
 │   └── style.css           # Compiled Tailwind CSS (generated)
-├── tests/                  # Test files
 ├── worker/                 # Server-side edge code
 │   ├── components/         # React components (server-rendered)
 │   ├── context.ts          # Request context management
@@ -77,6 +76,7 @@ cloudflare-react-tailwind-worker/
 │   ├── layout.tsx          # Main application layout
 │   ├── pages/              # Page components
 │   └── rpc.ts              # RPC server implementation
+├── worker-tests/           # Test files
 ├── wrangler.jsonc          # Cloudflare Workers configuration
 ├── tsconfig.json           # TypeScript configuration
 └── package.json            # Project dependencies and scripts
