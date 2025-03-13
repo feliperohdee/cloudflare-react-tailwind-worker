@@ -96,15 +96,21 @@ const Hero = () => {
 							</a>
 						</div>
 					</div>
+
 					<div className='text-center'>
-						<h1 className='text-5xl font-semibold tracking-tight text-balance text-white sm:text-7xl'>
-							Edge-Powered React with Tailwind CSS
+						<h1 className='text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl'>
+							<span className='mb-2 block'>
+								React at the Edge
+							</span>
+							<span className='inline-block bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent'>
+								Built for Performance
+							</span>
 						</h1>
-						<p className='mt-8 text-lg font-medium text-pretty text-gray-300 sm:text-xl/8'>
-							Build lightning-fast web applications with the power
-							of Cloudflare Workers, React 19, and Tailwind CSS
-							v4. Deploy globally and deliver exceptional user
-							experiences from the edge.
+						<p className='mx-auto mt-6 max-w-2xl text-lg leading-8 text-pretty text-gray-300'>
+							Combine the power of React server-side rendering
+							with Cloudflare Workers' global edge network. Create
+							lightning-fast applications with Alpine.js
+							micro-interactions and modern Tailwind styling.
 						</p>
 						<div
 							x-data='button'

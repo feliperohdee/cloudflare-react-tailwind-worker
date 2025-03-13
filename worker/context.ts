@@ -2,12 +2,15 @@ import { AsyncLocalStorage } from 'async_hooks';
 import { HelmetServerState } from 'react-helmet-async';
 import headers from 'use-request-utils/headers';
 
+import { Route } from '@/worker/router';
+
 type ContextStore = {
 	env: Env;
 	executionContext: ExecutionContext;
 	helmet: HelmetServerState;
 	request: Request;
 	responseHeaders: Headers;
+	route: Route;
 	url: URL;
 };
 
@@ -36,18 +39,19 @@ class Context {
 	}
 
 	run<R>(
-		args: Omit<ContextStore, 'helmet' | 'responseHeaders'>,
+		args: Omit<ContextStore, 'helmet' | 'responseHeaders' | 'route'>,
 		fn: () => R
 	): R;
 	run<R>(
-		args: Omit<ContextStore, 'helmet' | 'responseHeaders'>,
+		args: Omit<ContextStore, 'helmet' | 'responseHeaders' | 'route'>,
 		fn: () => Promise<R>
 	): Promise<R> {
 		return this.storage.run(
 			{
 				...args,
 				helmet: {} as HelmetServerState,
-				responseHeaders: new Headers()
+				responseHeaders: new Headers(),
+				route: {} as Route
 			},
 			fn
 		);
@@ -55,6 +59,10 @@ class Context {
 
 	setResponseHeaders(newHeaders: Headers) {
 		this.store.responseHeaders = newHeaders;
+	}
+
+	setRoute(route: Route) {
+		this.store.route = route;
 	}
 }
 

@@ -4,21 +4,23 @@
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Alpine.js](https://img.shields.io/badge/Alpine.js-3.14-8BC0D0?style=for-the-badge&logo=alpine.js&logoColor=white)
 
-A high-performance template for building server-rendered React applications with Cloudflare Workers and Tailwind CSS v4. Deploy globally at the edge with minimum latency and maximum performance.
+A high-performance, edge-first framework for building server-rendered React applications with Cloudflare Workers, Tailwind CSS v4, and Alpine.js for rich interactivity. Deploy globally with near-zero latency for the ultimate user experience.
 
 ## ✨ Features
 
-- **⚡ Edge Rendering** - Server-side rendering at the edge for lightning-fast performance
-- **🌐 Global Deployment** - Leverage Cloudflare's global network for minimal latency worldwide
-- **⚛️ React 19** - Utilize the latest React features with server components
-- **🎨 Tailwind CSS v4** - Next-generation utility-first CSS framework with native cascade layers
-- **🔄 Live Reload** - Fast development workflow with hot module replacement
-- **🧪 Testing** - Built-in test setup using Vitest and Cloudflare's testing tools
-- **📝 Type Safety** - Full TypeScript support throughout the application
-- **🔒 Authentication** - Built-in authentication utilities with JWT support
-- **📡 RPC Client** - Type-safe RPC client for seamless server-client communication
-- **📦 Zero Dependencies** - No runtime dependencies in the client bundle
+- **⚡ Full Edge Rendering** - Server-side React rendering at 275+ global edge locations
+- **🔄 Alpine.js Integration** - Lightweight JavaScript for micro-interactions without React hydration cost
+- **🌐 Global CDN** - Automatic content delivery through Cloudflare's high-performance network
+- **⚛️ React 19** - Latest React features optimized for server components
+- **🎨 Tailwind CSS v4** - Next-generation utility-first CSS with native cascade layers
+- **📱 Mobile-First** - Responsive design patterns built into the core components
+- **🔒 Authentication** - Built-in JWT-based authentication with secure cookies
+- **📡 Type-Safe RPC** - End-to-end typed communication between client and server
+- **🧪 Testing Suite** - Comprehensive testing with Vitest and Cloudflare's testing tools
+- **🦄 Zero Client Runtime** - Minimal JavaScript sent to the client for optimal performance
+- **🔥 Live Reload** - Fast development workflow with hot module replacement
 
 ## 🚀 Quick Start
 
@@ -59,20 +61,20 @@ A high-performance template for building server-rendered React applications with
 
 ```
 cloudflare-react-tailwind-worker/
-├── app/                    # Client-side application code
-│   ├── index.css           # Client-side styles (Tailwind import)
-│   ├── index.ts            # Client entry point
-│   └── rpc.ts              # RPC client utilities
+├── app/                    # Client-side code
+│   ├── index.css           # Client styles (Tailwind import)
+│   ├── index.ts            # Client entry point with Alpine.js setup
+│   └── rpc.ts              # RPC client utilities for API communication
 ├── public/                 # Static assets
-│   ├── assets/             # Compiled assets
+│   ├── assets/             # Compiled assets (generated)
 │   ├── images/             # Image files
-│   └── style.css           # Compiled Tailwind CSS
+│   └── style.css           # Compiled Tailwind CSS (generated)
 ├── tests/                  # Test files
-├── worker/                 # Server-side worker code
-│   ├── components/         # React components
-│   ├── context.ts          # Context management
+├── worker/                 # Server-side edge code
+│   ├── components/         # React components (server-rendered)
+│   ├── context.ts          # Request context management
 │   ├── index.tsx           # Worker entry point
-│   ├── layout.tsx          # Main layout component
+│   ├── layout.tsx          # Main application layout
 │   ├── pages/              # Page components
 │   └── rpc.ts              # RPC server implementation
 ├── wrangler.jsonc          # Cloudflare Workers configuration
@@ -80,32 +82,28 @@ cloudflare-react-tailwind-worker/
 └── package.json            # Project dependencies and scripts
 ```
 
-## 🔧 Development
+## 🔄 Alpine.js Integration
 
-### Available Scripts
+This project leverages Alpine.js for client-side interactivity without the overhead of full React hydration. Alpine.js provides a lightweight solution for micro-interactions:
 
-- `yarn dev` - Starts the development server with hot reloading
-- `yarn build` - Builds the application for production
-- `yarn start` - Starts the worker locally
-- `yarn deploy` - Deploys the application to Cloudflare Workers
-- `yarn test` - Runs the test suite
-- `yarn lint` - Lints and formats the code
+```html
+<div x-data="{ open: false }">
+	<button x-on:click="open = !open">Toggle Menu</button>
 
-### Environment Variables
-
-Environment variables can be configured in `wrangler.jsonc`:
-
-```json
-{
-	"vars": {
-		"PRODUCTION": "true"
-	}
-}
+	<div
+		x-show="open"
+		class="menu"
+	>
+		<!-- Menu content -->
+	</div>
+</div>
 ```
+
+Alpine.js is automatically initialized in the client entry point (`app/index.ts`).
 
 ## 📡 RPC System
 
-This project includes a robust type-safe RPC system for server-client communication. For detailed documentation, see [README-RPC.md](README-RPC.md).
+This project includes a robust type-safe RPC system for seamless server-client communication. For detailed documentation, see [README-RPC.md](README-RPC.md):
 
 ### Server-side RPC Definition
 
@@ -137,21 +135,38 @@ helloResource.onData(data => {
 	console.log(data.message); // "Hello, World!"
 });
 
-// Or use async/await
-const data = await helloResource.fetch({ message: 'React' });
-console.log(data.message); // "Hello, React!"
+// Or use with Alpine.js
+Alpine.data('demoComponent', () => ({
+	message: '',
+	async fetchGreeting() {
+		const result = await resource('hello', { message: 'Alpine' }).fetch();
+		this.message = result.message;
+	}
+}));
 ```
 
-## 🎨 Tailwind CSS v4
+## 🔧 Development
 
-This starter utilizes Tailwind CSS v4, bringing several improvements:
+### Available Scripts
 
-- CSS-first configuration
-- Native CSS cascade layers
-- Container query support
-- Enhanced gradients and shadows
-- 3D transforms
-- Dynamic spacing scale
+- `yarn dev` - Starts the development server with hot reloading
+- `yarn build` - Builds the application for production
+- `yarn start` - Starts the worker locally
+- `yarn deploy` - Deploys the application to Cloudflare Workers
+- `yarn test` - Runs the test suite
+- `yarn lint` - Lints and formats the code
+
+### Environment Variables
+
+Environment variables can be configured in `wrangler.jsonc`:
+
+```json
+{
+	"vars": {
+		"PRODUCTION": "true"
+	}
+}
+```
 
 ## 🌐 Deployment
 
@@ -167,11 +182,20 @@ yarn deploy --env preview
 yarn deploy
 ```
 
+## 🎯 Performance Optimization
+
+This framework is built with performance in mind:
+
+1. **Edge-First Rendering** - Pages are rendered at the edge location closest to your users
+2. **Minimal JavaScript** - Alpine.js for interactivity with a fraction of the bundle size
+3. **Optimized Asset Delivery** - Automatic asset optimization through Cloudflare's CDN
+
 ## 📚 Technology Stack
 
 - [Cloudflare Workers](https://workers.cloudflare.com/) - Serverless execution environment
 - [React](https://react.dev/) - UI library (v19)
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework (v4)
+- [Alpine.js](https://alpinejs.dev/) - Lightweight JavaScript framework for interactivity
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 - [Vitest](https://vitest.dev/) - Testing framework
 - [Typed RPC](https://github.com/fed135/typed-rpc) - Type-safe RPC library
