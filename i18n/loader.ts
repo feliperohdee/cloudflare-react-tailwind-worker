@@ -3,7 +3,7 @@ import _ from 'lodash';
 let cache: Record<string, string> = {};
 let translations: Record<string, string> = {};
 
-const init = (newTranslations: Record<string, string>) => {
+const load = (newTranslations: Record<string, string>) => {
 	cache = {};
 	translations = newTranslations;
 
@@ -38,4 +38,4 @@ const init = (newTranslations: Record<string, string>) => {
 	self.__ = __;
 };
 
-export default { init };
+export default { load };

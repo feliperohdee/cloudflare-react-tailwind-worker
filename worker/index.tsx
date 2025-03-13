@@ -46,7 +46,7 @@ const handler = {
 			},
 			async () => {
 				try {
-					i18n.init(lang);
+					i18n.load(lang);
 
 					if (
 						request.method === 'POST' &&

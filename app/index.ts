@@ -14,7 +14,7 @@ import i18n from '@/i18n';
 		return i18n.supports(lang) ? lang : 'en-us';
 	})();
 
-	i18n.init(lang);
+	i18n.load(lang);
 	Alpine.data('button', () => ({
 		open: false,
 		async toggle(e: Event) {
