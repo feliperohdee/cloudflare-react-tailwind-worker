@@ -4,6 +4,9 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"main": "worker/index.tsx",
 	"name": "react-tailwind-worker",
+	"ai": {
+		"binding": "AI"
+	},
 	"assets": {
 		"binding": "ASSETS",
 		"directory": "./public"
