@@ -40,6 +40,6 @@
 		"use-vite-manifest-parser": "^1.0.1",
 		"vite": "^6.2.1",
 		"vitest": "~3.0.7",
-		"wrangler": "^4.0.0"
+		"wrangler": "^4.3.0"
 	}
 }
