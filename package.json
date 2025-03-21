@@ -16,7 +16,7 @@
 	"dependencies": {
 		"@cloudflare/vite-plugin": "^0.1.11",
 		"@cloudflare/vitest-pool-workers": "^0.8.0",
-		"@cloudflare/workers-types": "^4.20250312.0",
+		"@cloudflare/workers-types": "^4.20250320.0",
 		"@eslint/js": "^9.22.0",
 		"@tailwindcss/vite": "^4.0.14",
 		"@types/alpinejs": "^3.13.11",
