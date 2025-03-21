@@ -16,6 +16,19 @@ class Rpc {
 		});
 	}
 
+	async toMarkdown({ url }: { url: string }) {
+		const { env } = context.store;
+		const html = await fetch(url);
+
+		const blob = await html.blob();
+		const res = await env.AI.toMarkdown({
+			blob,
+			name: 'image.png'
+		});
+
+		return res;
+	}
+
 	async hello({ message }: { message: string }) {
 		const { request } = context.store;
 
