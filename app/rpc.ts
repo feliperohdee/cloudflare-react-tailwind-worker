@@ -13,7 +13,6 @@ import {
 
 import type { Rpc } from '@/worker/rpc';
 
-type RpcMethod = keyof Rpc;
 type RpcEvent = 'loading-start' | 'loading-end' | 'loaded' | 'data' | 'error';
 
 type ResourceState<T> = {
@@ -30,22 +29,6 @@ type ResourceListeners<T> = {
 	onError: ((error: HttpError) => void)[];
 	onLoaded: ((loaded: boolean) => void)[];
 	onLoading: ((loading: boolean) => void)[];
-};
-
-type Resource<T> = {
-	cancelPending: () => void;
-	dispose: () => void;
-	fetch: <M extends RpcMethod>(...args: Parameters<Rpc[M]>) => Promise<T>;
-	getState: () => ResourceState<T>;
-	on: (
-		callback: (event: RpcEvent, state: ResourceState<T>) => void
-	) => () => void;
-	onData: (callback: (data: T) => void) => () => void;
-	onError: (callback: (error: HttpError) => void) => () => void;
-	onLoaded: (callback: (loaded: boolean) => void) => () => void;
-	onLoading: (callback: (loading: boolean) => void) => () => void;
-	setData: (update: T | ((data: T) => T)) => T;
-	updateArgs: <M extends RpcMethod>(...newArgs: Parameters<Rpc[M]>) => void;
 };
 
 type FetchOptions = {
@@ -132,18 +115,21 @@ const createRpcClient = (options?: RpcClientOptions) => {
 
 	const pendingPromises = new Map<Promise<any>, boolean>();
 	const resourceFactory = ({ lazy }: { lazy: boolean }) => {
-		return <T, M extends RpcMethod>(
-			method: M,
-			...initialArgs: Parameters<Rpc[M]>
-		): Resource<T> => {
+		return <T extends keyof Rpc>(
+			method: T,
+			...initialArgs: Parameters<Rpc[T]>
+		) => {
+			type Args = Parameters<Rpc[T]>;
+			type Data = Awaited<ReturnType<Rpc[T]>>;
+
 			let currentPromise: Promise<any> | null = null;
 			let firstExecute = false;
-			let prev: { method: M; args: Parameters<Rpc[M]> } = {
+			let prev: { method: T; args: Args } = {
 				method,
 				args: initialArgs
 			};
 
-			let state: ResourceState<T> = {
+			let state: ResourceState<Data> = {
 				data: null,
 				error: null,
 				index: 0,
@@ -151,7 +137,7 @@ const createRpcClient = (options?: RpcClientOptions) => {
 				loading: false
 			};
 
-			const listeners: ResourceListeners<T> = {
+			const listeners: ResourceListeners<Data> = {
 				on: [],
 				onData: [],
 				onError: [],
@@ -159,9 +145,9 @@ const createRpcClient = (options?: RpcClientOptions) => {
 				onLoading: []
 			};
 
-			const setData = (update: T | ((data: T) => T)): T => {
+			const setData = (update: Data | ((data: Data) => Data)): Data => {
 				const newData = isFunction(update)
-					? (update as (data: T) => T)(state.data as T)
+					? (update as (data: Data) => Data)(state.data as Data)
 					: update;
 
 				state = {
@@ -180,9 +166,7 @@ const createRpcClient = (options?: RpcClientOptions) => {
 				return newData;
 			};
 
-			const fetch = async <M2 extends RpcMethod>(
-				...overrideArgs: Parameters<Rpc[M2]>
-			): Promise<T> => {
+			const fetch = async (...overrideArgs: Args | []): Promise<Data> => {
 				try {
 					const prevLoading = state.loading;
 					const prevLoaded = state.loaded;
@@ -218,6 +202,8 @@ const createRpcClient = (options?: RpcClientOptions) => {
 					if (!isFunction(rpc[method])) {
 						throw new HttpError(404, 'Method not found');
 					}
+
+					console.log({ overrideArgs });
 
 					const args = overrideArgs.length
 						? overrideArgs
@@ -266,7 +252,7 @@ const createRpcClient = (options?: RpcClientOptions) => {
 					const httpError = HttpError.wrap(err as Error);
 
 					if (httpError.message.includes('aborted')) {
-						return state.data as T;
+						return state.data as Data;
 					}
 
 					state = {
@@ -320,12 +306,15 @@ const createRpcClient = (options?: RpcClientOptions) => {
 			}
 
 			return {
-				getState: (): ResourceState<T> => {
+				getState: (): ResourceState<Data> => {
 					return { ...state };
 				},
 				fetch,
 				on: (
-					callback: (event: RpcEvent, state: ResourceState<T>) => void
+					callback: (
+						event: RpcEvent,
+						state: ResourceState<Data>
+					) => void
 				): (() => void) => {
 					listeners.on.push(callback);
 
@@ -335,7 +324,7 @@ const createRpcClient = (options?: RpcClientOptions) => {
 						);
 					};
 				},
-				onData: (callback: (data: T) => void): (() => void) => {
+				onData: (callback: (data: Data) => void): (() => void) => {
 					listeners.onData.push(callback);
 
 					return () => {
@@ -378,10 +367,8 @@ const createRpcClient = (options?: RpcClientOptions) => {
 					};
 				},
 				setData,
-				updateArgs: <M2 extends RpcMethod>(
-					...newArgs: Parameters<Rpc[M2]>
-				): void => {
-					initialArgs = newArgs as unknown as Parameters<Rpc[M]>;
+				updateArgs: (...newArgs: Args): void => {
+					initialArgs = newArgs as unknown as Args;
 					debouncedCheckAndExecute();
 				},
 				cancelPending: (): void => {
@@ -405,9 +392,9 @@ const createRpcClient = (options?: RpcClientOptions) => {
 	};
 
 	return {
+		lazyResource: resourceFactory({ lazy: true }),
 		rpc: rpc,
 		resource: resourceFactory({ lazy: false }),
-		resourceLazy: resourceFactory({ lazy: true }),
 		abortAll: (): void => {
 			pendingPromises.forEach((_, promise) => {
 				rpc.$abort(promise);
