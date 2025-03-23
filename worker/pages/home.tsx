@@ -7,6 +7,10 @@ const Home = () => {
 		<>
 			<Helmet>
 				<title>Cloudflare React Tailwind Worker | Home</title>
+				<meta
+					name='description'
+					content='Cloudflare React Tailwind Worker'
+				/>
 			</Helmet>
 			<Hero />
 		</>
