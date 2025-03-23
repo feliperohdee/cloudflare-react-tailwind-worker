@@ -129,6 +129,11 @@ const Hero = () => {
 							>
 								View on GitHub <span aria-hidden='true'>→</span>
 							</a>
+
+							<x-app>
+								<x-hello slot='hello' />
+								<x-hello slot='hello-2' />
+							</x-app>
 						</div>
 					</div>
 				</div>

@@ -8,7 +8,7 @@ export default defineConfig({
 		manifest: true,
 		rollupOptions: {
 			input: {
-				main: path.resolve(__dirname, 'app/index.ts')
+				main: path.resolve(__dirname, 'app/index.tsx')
 			},
 			output: {
 				entryFileNames: '[name].[hash].js',

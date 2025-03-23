@@ -57,7 +57,7 @@ const Layout = ({
 						/>
 						<script
 							type='module'
-							src='http://localhost:5173/app/index.ts'
+							src='http://localhost:5173/app/index.tsx'
 						/>
 					</>
 				) : null}
