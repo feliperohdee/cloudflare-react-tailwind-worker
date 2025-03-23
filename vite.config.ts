@@ -1,7 +1,6 @@
 import { cloudflare } from '@cloudflare/vite-plugin';
 import { defineConfig } from 'vite';
 import path from 'path';
-import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
@@ -23,7 +22,7 @@ export default defineConfig({
 		// required to instruct cloudflare to build react in production mode
 		'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
 	},
-	plugins: [cloudflare(), react(), tailwindcss()],
+	plugins: [cloudflare(), tailwindcss()],
 	resolve: {
 		alias: {
 			'@': __dirname

@@ -6,7 +6,7 @@ const Hello = ({ count2 }: { count2?: number }) => {
 
 	return (
 		<div className='text-4xl text-red-500'>
-			Hello {count2 || state.count}!
+			Helleeeaaao {count2 || state.count}!
 		</div>
 	);
 };
