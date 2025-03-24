@@ -10,11 +10,6 @@ export default defineConfig({
 		rollupOptions: {
 			input: {
 				main: path.resolve(__dirname, 'app/index.ts')
-			},
-			output: {
-				entryFileNames: '[name].[hash].js',
-				chunkFileNames: '[name].[hash].js',
-				assetFileNames: '[name].[hash].[ext]'
 			}
 		}
 	},
