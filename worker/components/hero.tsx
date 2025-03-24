@@ -1,14 +1,3 @@
-import { Menu } from 'lucide-react';
-
-const navigation = [
-	{
-		name: 'Cloudflare Docs',
-		href: 'https://developers.cloudflare.com/workers/'
-	},
-	{ name: 'Tailwind CSS', href: 'https://tailwindcss.com/docs' },
-	{ name: 'React Docs', href: 'https://react.dev/' }
-];
-
 const Hero = () => {
 	return (
 		<div className='h-screen overflow-hidden bg-gray-900'>
@@ -32,30 +21,7 @@ const Hero = () => {
 							/>
 						</a>
 					</div>
-					<div className='flex lg:hidden'>
-						<button
-							type='button'
-							className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400'
-						>
-							<span className='sr-only'>Open main menu</span>
-							<Menu
-								aria-hidden='true'
-								className='size-6'
-							/>
-						</button>
-					</div>
-					<div className='hidden lg:flex lg:gap-x-12'>
-						{navigation.map(item => (
-							<a
-								key={item.name}
-								href={item.href}
-								className='text-sm/6 font-semibold text-gray-300 hover:text-white'
-							>
-								{item.name}
-							</a>
-						))}
-					</div>
-					<div className='hidden lg:flex lg:flex-1 lg:justify-end'>
+					<div className='flex flex-1 justify-end'>
 						<a
 							href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 							className='text-sm/6 font-semibold text-gray-300 hover:text-white'
@@ -109,15 +75,11 @@ const Hero = () => {
 						<p className='mx-auto mt-6 max-w-2xl text-lg leading-8 text-pretty text-gray-300'>
 							Combine the power of React server-side rendering
 							with Cloudflare Workers' global edge network. Create
-							lightning-fast applications with Alpine.js
-							micro-interactions and modern Tailwind styling.
+							lightning-fast applications with React Web
+							Components and modern Tailwind styling.
 						</p>
-						<div
-							x-data='button'
-							className='mt-10 flex items-center justify-center gap-x-6'
-						>
+						<div className='mt-10 flex items-center justify-center gap-x-6'>
 							<a
-								x-on:click='toggle'
 								href='https://github.com/feliperohdee/cloudflare-react-tailwind-worker'
 								className='rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
 							>
