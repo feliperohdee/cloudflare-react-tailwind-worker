@@ -1,7 +1,6 @@
-import { createGlobalState, useGlobalState } from '@/app/libs/global-state';
-import createRpcClient from '@/app/rpc';
 import cookies from '@/app/libs/cookies';
 import i18n from '@/i18n';
+import { createGlobalState, useGlobalState } from '@/app/libs/global-state';
 
 const lang = (() => {
 	const lang = cookies.get('lang');
@@ -13,7 +12,6 @@ i18n.load(lang);
 const globalState = createGlobalState({
 	count: 0,
 	lang,
-	rpc: createRpcClient(),
 	user: {
 		name: '',
 		isLoggedIn: false

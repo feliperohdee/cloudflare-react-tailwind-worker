@@ -48,16 +48,19 @@ const Layout = ({
 					</Helmet>
 					<template id='helmet' />
 				</head>
-				<body>{children}</body>
+				<body>
+					{children}
+					<x-toastr />
+				</body>
 				{env.PRODUCTION === 'false' ? (
 					<>
 						<script
 							type='module'
-							src='http://localhost:5173/@vite/client'
+							src='/@vite/client'
 						/>
 						<script
 							type='module'
-							src='http://localhost:5173/app/index.tsx'
+							src='/app/index.ts'
 						/>
 					</>
 				) : null}

@@ -12,9 +12,10 @@ import meta from '@/worker/libs/meta';
 import NotFoundPage from '@/worker/pages/not-found';
 import router from '@/worker/libs/router';
 import rpcHandler from '@/worker/rpc';
+import RpcPage from '@/worker/pages/rpc';
 
 router.add('/', HomePage);
-router.add('/:id', HomePage);
+router.add('/rpc', RpcPage);
 router.add('*', NotFoundPage);
 
 const handler = {

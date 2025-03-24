@@ -9,7 +9,7 @@ export default defineConfig({
 		minify: true,
 		rollupOptions: {
 			input: {
-				main: path.resolve(__dirname, 'app/index.tsx')
+				main: path.resolve(__dirname, 'app/index.ts')
 			},
 			output: {
 				entryFileNames: '[name].[hash].js',

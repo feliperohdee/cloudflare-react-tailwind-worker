@@ -1,7 +1,7 @@
 import r2wc from '@r2wc/react-to-web-component';
 
-import app from '@/app/components/app';
-import hello from '@/app/components/hello';
+import rpc from '@/app-web-components/rpc';
+import toastr from '@/app-web-components/toastr';
 
 type WebComponent<T extends (...args: any[]) => any> =
 	Parameters<T>[0] extends undefined
@@ -11,11 +11,11 @@ type WebComponent<T extends (...args: any[]) => any> =
 declare module 'react' {
 	namespace JSX {
 		interface IntrinsicElements {
-			['x-app']: WebComponent<typeof app.component>;
-			['x-hello']: WebComponent<typeof hello.component>;
+			['x-rpc']: WebComponent<typeof rpc.component>;
+			['x-toastr']: WebComponent<typeof toastr.component>;
 		}
 	}
 }
 
-customElements.define('x-app', r2wc(app.component, app));
-customElements.define('x-hello', r2wc(hello.component, hello));
+customElements.define('x-rpc', r2wc(rpc.component, rpc));
+customElements.define('x-toastr', r2wc(toastr.component, toastr));
