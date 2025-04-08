@@ -15,8 +15,8 @@
 		"test": "vitest"
 	},
 	"dependencies": {
-		"@cloudflare/vite-plugin": "^0.1.15",
-		"@cloudflare/vitest-pool-workers": "^0.8.0",
+		"@cloudflare/vite-plugin": "^1.0.2",
+		"@cloudflare/vitest-pool-workers": "^0.8.13",
 		"@eslint/js": "^9.22.0",
 		"@r2wc/react-to-web-component": "^2.0.4",
 		"@radix-ui/react-slot": "^1.1.2",
@@ -47,6 +47,6 @@
 		"use-vite-manifest-parser": "^1.0.1",
 		"vite": "^6.2.1",
 		"vitest": "~3.0.7",
-		"wrangler": "^4.4.0"
+		"wrangler": "^4.9.0"
 	}
 }
