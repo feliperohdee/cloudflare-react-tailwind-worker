@@ -2,6 +2,9 @@ import { createElement } from 'react';
 import { renderToReadableStream } from 'react-dom/server';
 import cookies from 'use-request-utils/cookies';
 import headers from 'use-request-utils/headers';
+import isPlainObject from 'lodash/isPlainObject';
+import Rpc from 'use-request-utils/rpc';
+import util from 'use-request-utils/util';
 
 import context from '@/worker/context';
 import HomePage from '@/worker/pages/home';
@@ -10,13 +13,45 @@ import i18n from '@/i18n';
 import Layout from '@/worker/layout';
 import meta from '@/worker/libs/meta';
 import NotFoundPage from '@/worker/pages/not-found';
+import RootRpc from '@/worker/rpc';
 import router from '@/worker/libs/router';
-import rpcHandler from '@/worker/rpc';
 import RpcPage from '@/worker/pages/rpc';
 
 router.add('/', HomePage);
 router.add('/rpc', RpcPage);
 router.add('*', NotFoundPage);
+
+const fetchRpc = async (rpc: Rpc, req: Request): Promise<Response> => {
+	try {
+		if (!req.headers.get('content-type')?.includes('multipart/form-data')) {
+			throw new HttpError(
+				400,
+				'Invalid content type, must be multipart/form-data'
+			);
+		}
+
+		const form = await req.formData();
+		const formBody = form.get('body');
+		const formRpc = form.get('rpc') as string;
+		const rpcRequest: Rpc.Request = util.safeParse(formRpc);
+
+		if (!isPlainObject(rpcRequest)) {
+			throw new HttpError(400);
+		}
+
+		return await rpc!.fetch(
+			rpcRequest,
+			new Request(req.url, {
+				body: formBody || null,
+				cf: req.cf,
+				headers: req.headers,
+				method: req.method
+			})
+		);
+	} catch (err) {
+		return HttpError.response(err as Error | HttpError);
+	}
+};
 
 const handler = {
 	async fetch(
@@ -53,7 +88,9 @@ const handler = {
 						request.method === 'POST' &&
 						url.pathname === '/api/rpc'
 					) {
-						return rpcHandler(request);
+						const rpc = new RootRpc();
+
+						return fetchRpc(rpc, request);
 					}
 
 					const route = router.match(url);

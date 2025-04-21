@@ -1,13 +1,12 @@
-import { handleRpc } from 'typed-rpc/server';
 import AuthJwt from 'use-request-utils/auth-jwt';
-import HttpError from 'use-http-error';
-
 import context from '@/worker/context';
+import Rpc from 'use-request-utils/rpc';
 
-class Rpc {
+class Root extends Rpc {
 	private auth: AuthJwt;
 
 	constructor() {
+		super();
 		this.auth = new AuthJwt({
 			cookie: 'auth_token',
 			expires: { days: 7 },
@@ -23,7 +22,7 @@ class Rpc {
 			const session = await this.auth.authenticate(request.headers);
 
 			return {
-				message: `${__('hello', { name: message })} (${session.payload.email})!`,
+				message: `Hello, ${message} (${session.payload.email})!`,
 				url: request.url
 			};
 		} catch {
@@ -37,52 +36,27 @@ class Rpc {
 	async signin({ email, password }: { email: string; password: string }) {
 		const res = await this.auth.sign({ email, password });
 
-		context.mergeResponseHeaders(res.headers);
-
-		return {
-			email,
-			token: res.token
-		};
+		return this.createResponse(
+			{
+				email,
+				token: res.token
+			},
+			{
+				headers: res.headers
+			}
+		);
 	}
 
 	async signout() {
 		const res = await this.auth.destroy();
 
-		context.mergeResponseHeaders(res.headers);
-
-		return { success: true };
+		return this.createResponse(
+			{ success: true },
+			{
+				headers: res.headers
+			}
+		);
 	}
 }
 
-const handler = async (req: Request) => {
-	const rpc = new Rpc();
-	const json = await req.json();
-
-	if (json && typeof json === 'object' && 'id' in json) {
-		HttpError.setDefaultContext({ id: json.id });
-	}
-
-	const res = await handleRpc(json, rpc, {
-		getErrorCode: err => {
-			if (err instanceof HttpError) {
-				return err.status;
-			}
-
-			return 500;
-		},
-		getErrorData: err => {
-			if (err instanceof HttpError) {
-				return err.context;
-			}
-
-			return null;
-		}
-	});
-
-	return Response.json(res, {
-		headers: context.getResponseHeaders()
-	});
-};
-
-export type { Rpc };
-export default handler;
+export default Root;
