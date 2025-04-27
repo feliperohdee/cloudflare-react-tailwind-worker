@@ -9,6 +9,7 @@ type ContextStore = {
 	helmet: HelmetServerState;
 	lang: string;
 	route: Route;
+	url: URL;
 };
 
 class Context {

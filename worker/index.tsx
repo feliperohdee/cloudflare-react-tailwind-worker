@@ -1,7 +1,6 @@
 import { createElement } from 'react';
 import { renderToReadableStream } from 'react-dom/server';
 import cookies from 'use-request-utils/cookies';
-import headers from 'use-request-utils/headers';
 import isPlainObject from 'lodash/isPlainObject';
 import Rpc from 'use-request-utils/rpc';
 import util from 'use-request-utils/util';
@@ -77,7 +76,6 @@ const handler = {
 				env,
 				executionContext,
 				lang,
-				request,
 				url
 			},
 			async () => {
@@ -108,10 +106,10 @@ const handler = {
 					);
 
 					return new Response(stream.pipeThrough(meta.injectHead()), {
-						headers: headers.merge(context.getResponseHeaders(), {
+						headers: {
 							'cache-control': 'public, max-age=3600',
 							'content-type': 'text/html'
-						})
+						}
 					});
 				} catch (err) {
 					const httpError = HttpError.wrap(err as Error);
