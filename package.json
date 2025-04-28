@@ -43,7 +43,7 @@
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.26.1",
 		"use-infer": "^1.0.6",
-		"use-request-utils": "^1.0.37",
+		"use-request-utils": "^1.0.38",
 		"use-toastr": "^1.0.3",
 		"use-vite-manifest-parser": "^1.0.1",
 		"vite": "^6.2.1",
