@@ -2,7 +2,6 @@ import { createElement } from 'react';
 import { renderToReadableStream } from 'react-dom/server';
 import cookies from 'use-request-utils/cookies';
 import isPlainObject from 'lodash/isPlainObject';
-import Request from 'use-request-utils/request';
 import Rpc from 'use-request-utils/rpc';
 import util from 'use-request-utils/util';
 
