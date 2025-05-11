@@ -20,11 +20,11 @@ const Rpc = () => {
 		loading,
 		setData
 	} = fetchRpc(
-		rpc => {
-			return rpc.hello({ message });
+		(rpc, input?: { message: string }) => {
+			return rpc.hello(input ?? { message });
 		},
 		{
-			deps: [message]
+			triggerDeps: [message]
 		}
 	);
 
@@ -108,9 +108,7 @@ const Rpc = () => {
 				<Button
 					className='flex-1 bg-blue-600 hover:bg-blue-700'
 					onClick={() => {
-						fetch({
-							message: 'Custom Message'
-						});
+						fetch({ message: 'Custom Message' });
 					}}
 				>
 					Refetch w/ Custom Payload
