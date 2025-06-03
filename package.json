@@ -42,13 +42,13 @@
 		"typed-rpc": "^6.1.1",
 		"typescript": "^5.8.2",
 		"typescript-eslint": "^8.26.1",
-		"use-infer": "^1.0.7",
-		"use-request-utils": "^1.0.69",
+		"use-infer": "^1.0.8",
+		"use-request-utils": "^1.0.70",
 		"use-toastr": "^1.0.4",
 		"use-vite-manifest-parser": "^1.0.1",
 		"vite": "^6.2.1",
 		"vitest": "~3.0.7",
-		"wrangler": "^4.15.2"
+		"wrangler": "^4.18.0"
 	},
 	"devDependencies": {
 		"@types/lodash": "^4.17.16"
