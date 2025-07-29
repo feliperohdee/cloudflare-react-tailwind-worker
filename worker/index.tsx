@@ -5,11 +5,11 @@ import isPlainObject from 'lodash/isPlainObject';
 import Rpc from 'use-request-utils/rpc';
 
 import context from '@/worker/context';
+import helper from '@/worker/libs/helper';
 import HomePage from '@/worker/pages/home';
 import HttpError from 'use-http-error';
 import i18n from '@/i18n';
 import Layout from '@/worker/layout';
-import meta from '@/worker/libs/meta';
 import NotFoundPage from '@/worker/pages/not-found';
 import RootRpc from '@/worker/rpc';
 import router from '@/worker/libs/router';
@@ -92,7 +92,7 @@ const handler = {
 
 					const route = router.match(url);
 					const { links, preloads, scripts } =
-						await meta.getManifest();
+						await helper.getManifest();
 
 					const stream = await renderToReadableStream(
 						<Layout
@@ -104,7 +104,7 @@ const handler = {
 						{ bootstrapModules: scripts }
 					);
 
-					return new Response(stream.pipeThrough(meta.injectHead()), {
+					return new Response(stream.pipeThrough(helper.injectHead()), {
 						headers: {
 							'cache-control': 'public, max-age=3600',
 							'content-type': 'text/html'
