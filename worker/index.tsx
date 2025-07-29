@@ -1,5 +1,5 @@
 import { createElement } from 'react';
-import { renderToReadableStream } from 'react-dom/server';
+import { renderToReadableStream } from 'react-dom/server.edge';
 import cookies from 'use-request-utils/cookies';
 import isPlainObject from 'lodash/isPlainObject';
 import Rpc from 'use-request-utils/rpc';
