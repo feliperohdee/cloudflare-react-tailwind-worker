@@ -5,7 +5,7 @@ import isPlainObject from 'lodash/isPlainObject';
 import Rpc from 'use-request-utils/rpc';
 
 import context from '@/worker/context';
-import helper from '@/worker/libs/helper';
+import helpers from '@/worker/libs/helpers';
 import HomePage from '@/worker/pages/home';
 import HttpError from 'use-http-error';
 import i18n from '@/i18n';
@@ -92,7 +92,7 @@ const handler = {
 
 					const route = router.match(url);
 					const { links, preloads, scripts } =
-						await helper.getManifest();
+						await helpers.getManifest();
 
 					const stream = await renderToReadableStream(
 						<Layout
@@ -104,7 +104,7 @@ const handler = {
 						{ bootstrapModules: scripts }
 					);
 
-					return new Response(stream.pipeThrough(helper.injectHead()), {
+					return new Response(stream.pipeThrough(helpers.injectHead()), {
 						headers: {
 							'cache-control': 'public, max-age=3600',
 							'content-type': 'text/html'
