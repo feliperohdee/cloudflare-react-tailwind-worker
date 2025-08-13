@@ -54,8 +54,7 @@ const fetchRpc = async (rpc: Rpc, req: Request): Promise<Response> => {
 const handler = {
 	async fetch(
 		request: Request,
-		env: Env,
-		executionContext: ExecutionContext
+		env: Env
 	): Promise<Response> {
 		HttpError.setIncludeStack(env.PRODUCTION === 'false');
 
