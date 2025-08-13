@@ -72,8 +72,6 @@ const handler = {
 
 		const res = await context.run(
 			{
-				env,
-				executionContext,
 				lang,
 				url
 			},

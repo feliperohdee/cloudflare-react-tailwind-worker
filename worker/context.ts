@@ -4,8 +4,6 @@ import { HelmetServerState } from 'react-helmet-async';
 import { Route } from '@/worker/libs/router';
 
 type ContextStore = {
-	env: Env;
-	executionContext: ExecutionContext;
 	helmet: HelmetServerState;
 	lang: string;
 	route: Route;
