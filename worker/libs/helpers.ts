@@ -1,11 +1,12 @@
-import parseViteManifest from 'use-vite-manifest-parser';
+import { env } from 'cloudflare:workers';
 import map from 'lodash/map';
+import parseViteManifest from 'use-vite-manifest-parser';
 import reduce from 'lodash/reduce';
 
 import context from '@/worker/context';
 
 const getManifest = async () => {
-	const { env, url } = context.store;
+	const { url } = context.store;
 
 	if (env.PRODUCTION === 'false') {
 		return {

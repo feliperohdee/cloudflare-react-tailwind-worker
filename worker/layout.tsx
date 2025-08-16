@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 import map from 'lodash/map';
 
@@ -12,8 +13,6 @@ const Layout = ({
 	links: string[];
 	preloads: string[];
 }) => {
-	const { env } = context.store;
-
 	return (
 		<HelmetProvider context={context.store}>
 			<html lang='en'>
