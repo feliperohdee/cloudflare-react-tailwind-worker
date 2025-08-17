@@ -26,21 +26,25 @@ const Layout = ({
 						name='viewport'
 						content='width=device-width, initial-scale=1'
 					/>
-					{map(links, link => (
-						<link
-							key={link}
-							rel='stylesheet'
-							href={link}
-						/>
-					))}
+					{map(links, link => {
+						return (
+							<link
+								key={link}
+								rel='stylesheet'
+								href={link}
+							/>
+						);
+					})}
 
-					{map(preloads, preload => (
-						<link
-							key={preload}
-							rel='preload'
-							href={preload}
-						/>
-					))}
+					{map(preloads, preload => {
+						return (
+							<link
+								key={preload}
+								rel='preload'
+								href={preload}
+							/>
+						);
+					})}
 
 					<Helmet>
 						<title>Cloudflare React Tailwind Worker</title>
