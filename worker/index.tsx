@@ -52,10 +52,7 @@ const fetchRpc = async (rpc: Rpc, req: Request): Promise<Response> => {
 };
 
 const handler = {
-	async fetch(
-		request: Request,
-		env: Env
-	): Promise<Response> {
+	async fetch(request: Request, env: Env): Promise<Response> {
 		HttpError.setIncludeStack(env.PRODUCTION === 'false');
 
 		const url = new URL(request.url);
@@ -69,51 +66,42 @@ const handler = {
 			return i18n.supports(lang) ? lang : 'en-us';
 		})();
 
-		const res = await context.run(
-			{
-				lang,
-				url
-			},
-			async () => {
-				try {
-					i18n.load(lang);
+		const res = await context.run({ lang, url }, async () => {
+			try {
+				i18n.load(lang);
 
-					if (
-						request.method === 'POST' &&
-						url.pathname === '/api/rpc'
-					) {
-						const rpc = new RootRpc();
+				if (request.method === 'POST' && url.pathname === '/api/rpc') {
+					const rpc = new RootRpc();
 
-						return fetchRpc(rpc, request);
-					}
-
-					const route = router.match(url);
-					const { links, preloads, scripts } =
-						await helpers.getManifest();
-
-					const stream = await renderToReadableStream(
-						<Layout
-							links={links}
-							preloads={preloads}
-						>
-							{createElement(route)}
-						</Layout>,
-						{ bootstrapModules: scripts }
-					);
-
-					return new Response(stream.pipeThrough(helpers.injectHead()), {
-						headers: {
-							'cache-control': 'public, max-age=3600',
-							'content-type': 'text/html'
-						}
-					});
-				} catch (err) {
-					const httpError = HttpError.wrap(err as Error);
-
-					return httpError.toResponse();
+					return await fetchRpc(rpc, request);
 				}
+
+				const route = router.match(url);
+				const { links, preloads, scripts } =
+					await helpers.getManifest();
+
+				const stream = await renderToReadableStream(
+					<Layout
+						links={links}
+						preloads={preloads}
+					>
+						{createElement(route)}
+					</Layout>,
+					{ bootstrapModules: scripts }
+				);
+
+				return new Response(stream.pipeThrough(helpers.injectHead()), {
+					headers: {
+						'cache-control': 'public, max-age=3600',
+						'content-type': 'text/html'
+					}
+				});
+			} catch (err) {
+				const httpError = HttpError.wrap(err as Error);
+
+				return httpError.toResponse();
 			}
-		);
+		});
 
 		// if the lang is set in the url, set it in the cookie to persist user language choice
 		if (url.searchParams.has('lang')) {
