@@ -63,7 +63,6 @@ A high-performance, edge-first framework for building server-rendered React appl
 cloudflare-react-tailwind-worker/
 ├── app/                    # Client-side code
 │   ├── components/         # React components that can be used on client-side
-│   ├── hooks/              # React hooks for state management
 │   ├── libs/               # Utility functions
 │   ├── index.css           # Client styles (Tailwind import)
 │   └── index.ts            # Client entry point
@@ -184,7 +183,8 @@ class Rpc {
 ```typescript
 // In your React web component
 import { useState } from 'react';
-import useRpc from '@/app/hooks/use-rpc';
+import useRpc from 'use-request-utils/use-rpc';
+
 import exportComponent from '@/app/libs/export-web-component';
 
 const GreetingComponent = () => {
