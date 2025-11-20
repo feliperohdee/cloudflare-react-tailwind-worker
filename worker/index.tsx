@@ -8,7 +8,7 @@ import context from '@/worker/context';
 import helpers from '@/worker/libs/helpers';
 import HomePage from '@/worker/pages/home';
 import HttpError from 'use-http-error';
-import i18n from '@/i18n';
+import i18nLoader from '@/i18n/loader';
 import Layout from '@/worker/layout';
 import NotFoundPage from '@/worker/pages/not-found';
 import RootRpc from '@/worker/rpc';
@@ -63,12 +63,12 @@ const handler = {
 				request.headers.get('accept-language') ||
 				'';
 
-			return i18n.supports(lang) ? lang : 'en-us';
+			return i18nLoader.supports(lang) ? lang : 'en-us';
 		})();
 
 		const res = await context.run({ lang, url }, async () => {
 			try {
-				i18n.load(lang);
+				i18nLoader.load(lang);
 
 				if (request.method === 'POST' && url.pathname === '/api/rpc') {
 					const rpc = new RootRpc();
